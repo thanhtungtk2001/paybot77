@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta property="og:title" content="SHOP BOT PTT - Thuê Bot Messenger" />
+<meta property="og:description" content="Dịch vụ thanh toán bot, nhanh chóng, giá rẻ!" />
+<meta property="og:image" content="https://res.cloudinary.com/dmrfcfwsz/image/upload/v1777196538/hihlfuisicm2krsbrapn.jpg" />
+<meta property="og:url" content="https://botgiare.netlify.app/" />
+<meta property="og:type" content="website" />
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("https://res.cloudinary.com/dl9kwqtjm/image/upload/v1777131329/7b9dc711-231b-4366-b23d-1c81a0b08161_j9a1ba.jpg") no-repeat center center;
+  background-size: cover; /* 👈 full màn hình */
+  background-attachment: fixed;
+}
+
+/* CĂN GIỮA MÀN HÌNH */
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 👈 SỬA CHỖ NÀY */
+  align-items: center;
+  padding-top: 40px; /* tạo khoảng cách trên */
+}
+
+/* Glow */
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: #a855f7;
+  filter: blur(220px);
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+h1 {
+  font-size: 56px;
+  text-shadow: 0 -10px 30px #ff9898;
+  transform: translateY(-20px);
+  margin-bottom: 1px;
+  background: linear-gradient(
+  270deg, #ff0000, #ff2a00, #ff5500, #ff7f00,
+  #ffaa00, #ffff00, #80ff00, #00ff00, #00ff55,
+  #00ffff, #00aaff, #0055ff, #0000ff, #2e00ff,
+  #5d00ff, #8b00ff, #ff0000, #ff2a00, #ff5500,
+  #ff7f00,#ff0000, #ff2a00
+);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowMove 3s linear infinite;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+h4 {
+  font-size: 46px;
+  text-shadow: 0 -20px 30px #ffff88;
+  transform: translateY(-40px);
+  color: #ffd700;
+}
+
+/* Cards */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+  max-width: 900px;
+  transform: translateY(-100px);
+  color: #ff2e63;
+}
+
+.card {
+  backdrop-filter: blur(0);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 18px;
+  padding: 10px;
+  width: 300px;
+  box-shadow: 0 0 30px rgba(168,85,247,0.8);
+  transition: 0.3s;
+}
+
+.card h3 {
+  font-size: 35px;
+  margin: 0;  
+  font-weight: bold;
+  text-align: center;
+}
+
+.card p {
+  margin: 4px 0;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+background: linear-gradient(
+  270deg, #ff0000, #ff2a00, #ff5500, #ff7f00,
+  #ffaa00, #ffff00, #80ff00, #00ff00, #00ff55,
+  #00ffff, #00aaff, #0055ff, #0000ff, #2e00ff,
+  #5d00ff, #8b00ff, #ff0000, #ff2a00, #ff5500,
+  #ff7f00,#ff0000, #ff2a00
+);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowMove 3s linear infinite;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+@keyframes rainbowMove {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+.card:hover {
+  transform: scale(1.08);
+}
+
+/* Button */
+button {
+  margin-top: 15px;
+  padding: 14px 22px;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  background: #a855f7;
+  color: white;
+  box-shadow: 0 0 20px #a855f7;
+  transform: translateX(110px);
+}
+
+/* QR */
+#qrBox {
+  margin-top: -10px;
+  font-size: 30px;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: 0.5s;
+  gap: 5px;
+  color: #d946ef
+}
+
+#qrBox.show {
+  opacity: 1;
+  transform: translateY(-120px);
+}
+
+img {
+  margin-top: 20px;
+  width: 380px;
+  border-radius: 15px;
+  box-shadow: 0 0 40px #a855f7;
+  transform: translateX(30px);
+}
+
+/* Copy */
+.copyBox {
+  margin-top: 12px;
+  font-size: 18px;
+  background: rgba(255,255,255,0.15);
+  padding: 10px;
+  border-radius: 10px;
+  transform: translateY(-20px);
+}
+
+/* Timer */
+.timer {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #f33333;
+}
+
+.expired {
+  color: red;
+}
+
+/* Info */
+.info {
+  width: 100%;
+  max-width: 400px;
+  transform: translateX(-200px) translateY(-67px);
+  font-size: 24px;
+  opacity: 0.9;
+  color: #00CC00
+}
+
+.cardvt {
+  width: 100%;
+  max-width: 400px;
+  transform: translateX(200px) translateY(-124px);
+  font-size: 24px;
+  opacity: 0.9;
+  color: #00CC00
+}
+
+/* Contact */
+.contact {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  transform: translateY(-100px);
+}
+
+.contact a {
+  display: block;
+  width: 100%;
+  padding: 15px; /* 👈 làm nút cao hơn */
+  font-size: 38px; /* 👈 chữ to hơn */
+}
+
+.btn-link {
+  display: block;
+  margin: 10px auto;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-link img {
+  width: 58px;
+  height: 58px;
+  transform: translate(0px, -9px);
+  /*              (X ,   Y) */
+  margin-right: 6px;
+}
+
+/* Facebook */
+.fb {
+  background: #67E8F9;
+}
+
+/* Zalo */
+.zalo {
+  background: #67E8F9;
+}
+button.download {
+  background: #22c55e;
+  box-shadow: 0 0 20px #22c55e;
+  transform: translateX(120px);
+}
+button.download:hover {
+  background: #16a34a;
+}
+#qrBox.show {
+  animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-120px);
+  }
+}
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h4 {
+    font-size: 24px;
+  }
+
+  .info, .cardvt {
+    transform: none;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  button {
+    transform: none;
+  }
+}
+.hot {
+  border: 2px solid gold;
+  box-shadow: 0 0 40px gold;
+  position: relative;
+}
+
+.hot::before {
+  content: "HOT 🔥";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: gold;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.qr-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.qr-left {
+  text-align: left;
+  transform: translateY(-100px);
+  max-width: 300px;
+  font-weight: bold;
+  color: #f00000;
+}
+
+.qr-right img {
+  width: 350px;
+  transform: none;
+}
+</style>
+</head>
+<body>
+<div class="main">
+<h1>👾 Bot Chat Messenger 👾</h1>
+<h4>SHOP BOT PTT</h4>
+
+<div class="container">
+  <div class="card"><h3>1 Tháng</h3><p>30.000₫</p><button onclick="pay(30000)">Chọn</button></div>
+  <div class="card hot"><h3>3 Tháng</h3><p>90.000₫</p><button onclick="pay(90000)">Chọn</button></div>
+  <div class="card"><h3>4 Tháng</h3><p>120.000₫</p><button onclick="pay(120000)">Chọn</button></div>
+  <div class="card"><h3>6 Tháng</h3><p>150.000₫</p><button onclick="pay(150000)">Chọn</button></div>
+  <div class="card"><h3>9 Tháng</h3><p>240.000₫</p><button onclick="pay(240000)">Chọn</button></div>
+  <div class="card"><h3>12 Tháng</h3><p>330.000₫</p><button onclick="pay(330000)">Chọn</button></div>
+</div>
+<div id="qrBox"></div>
+
+<div class="info">
+⚜️ ADMIN: Phạm Thanh Tùng<br>
+STK CAKE: 0339104147
+</div>
+<div class="cardvt">
+💳 Thanh toán bằng card viettel<br>
+Vui lòng liên hệ trực tiếp qua admin
+</div>
+
+<div class="contact">
+  <a href="https://facebook.com/100077366272669" class="btn-link fb" onclick="openFB(event)">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+         style="width:58px; vertical-align:middle; margin-right:46px;">
+    Facebook
+  </a>
+  <a href="https://zalo.me/0339104147" class="btn-link zalo" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"
+         style="width:58px; vertical-align:middle; margin-right:46px;">
+    Zalo
+  </a>
+</div>
+</div>
+<script>
+let countdownInterval;
+
+function randomString(length) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+  alert("Đã copy!");
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function generateOrder() {
+  return "PTT-" + new Date().getFullYear() + "-" + Math.floor(Math.random() * 9999);
+}
+
+function pay(amount) {
+  clearInterval(countdownInterval);
+  const content = generateOrder();
+  const account = '0339104147';
+  const bank = 'CAKE';
+  const qrUrl = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${amount}&addInfo=${content}`;
+  const box = document.getElementById('qrBox');
+  box.innerHTML = `
+<h2>Quét QR để thanh toán</h2>
+<div class="qr-flex">
+  <div class="qr-left">
+    <p>Số tiền: ${amount.toLocaleString()}₫</p>
+    <div class="copyBox" onclick="copyText('${content}')">
+      Nội dung: ${content} (Bấm để Copy nội dung)
+    </div>
+    <div class="timer" id="timer">Hết hạn: 5:00</div>
+    <br>
+    <button class="download" onclick="downloadQR()">📥 Tải QR Về Máy</button>
+  </div>
+  <div class="qr-right">
+    <img id="qrImg" src="${qrUrl}" />
+  </div>
+</div>
+`;
+  box.classList.add("show");
+  let timeLeft = 300;
+  countdownInterval = setInterval(() => {
+    timeLeft--;
+    const timerEl = document.getElementById("timer");
+    if (timeLeft > 0) {
+      timerEl.innerText = "Hết hạn: " + formatTime(timeLeft);
+    } else {
+      clearInterval(countdownInterval);
+      timerEl.innerText = "QR hết hạn!";
+      timerEl.classList.add("expired");
+      document.getElementById("qrImg").style.opacity = "0.3";
+    }
+  }, 1000);
+}
+
+function openFB(e) {
+  e.preventDefault();
+
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  const fbApp = "https://www.facebook.com/profile.php?id=100077366272669";
+  const fbWeb = "https://www.facebook.com/profile.php?id=100077366272669";
+  if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    window.location.href = fbApp;
+    setTimeout(() => {
+      window.location.href = fbWeb;
+    }, 1500);
+  } 
+  else if (/android/i.test(userAgent)) {
+    window.location.href = fbApp;
+
+    setTimeout(() => {
+      window.open(fbWeb, "_blank");
+    }, 1000);
+  } 
+  else {
+    window.open(fbWeb, "_blank");
+  }
+}
+
+function downloadQR() {
+  const img = document.getElementById("qrImg");
+  if (!img) {
+    alert("Chưa có QR!");
+    return;
+  }
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  const image = new Image();
+  image.crossOrigin = "anonymous"; 
+  image.onload = function () {
+    canvas.width = image.width;
+    canvas.height = image.height;
+    ctx.drawImage(image, 0, 0);
+    canvas.toBlob(function (blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "vietqr.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }, "image/png");
+  };
+  image.onerror = function () {
+    alert("Không thể tải QR, thử lại!");
+  };
+  image.src = img.src;
+}
+</script>
+</body>
+</html>
